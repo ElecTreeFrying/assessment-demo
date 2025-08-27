@@ -1,0 +1,13 @@
+{
+  "name": "deep-copy-examples",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start-deep-copy": "node ./src/deep-copy/index.js",
+    "dev-deep-copy": "nodemon --watch src --ext js,mjs,cjs --signal SIGINT ./src/deep-copy/index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
