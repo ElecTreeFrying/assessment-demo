@@ -1,56 +1,33 @@
-# Deep Copy (Assessment Guide)
+# Deep Copy (fn: deepCopy)
 
-This folder contains the deep copy implementation and Pokémon-themed examples that validate cloning across many JavaScript types.
+A robust, side-effect-free deep cloning utility used for the assessment exam. The implementation in `deep-copy.js` focuses on correctness, prototype/descriptor preservation, circular reference handling, and realistic runtime types.
 
-## What deepCopy does
-
-- Clones objects/arrays and nested structures
-- Preserves prototypes, property descriptors (including non-enumerables), and symbols
-- Handles circular references via WeakMap cache
-- Mirrors object lock state on the clone (frozen, sealed, non-extensible)
-- Byte-copies buffers, typed arrays, and DataView-backed memory
-- Rebuilds special objects like Date, RegExp (including lastIndex), URL, URLSearchParams
-
-## Returned as-is
-
-- Promise, WeakMap, WeakSet, and functions (by design)
-
-## Supported (cloned) types
-
-Array, Object, class instances, Date, RegExp, Map, Set, ArrayBuffer, SharedArrayBuffer (if available), DataView, TypedArrays, Error, wrapper objects (new String/Number/Boolean), Node.js Buffer (if available), URL, URLSearchParams.
+## Highlights
+- Preserves prototypes, own property descriptors (incl. non-enumerables) and Symbols
+- Handles cycles with a `WeakMap`
+- Mirrors object lock state (frozen/sealed/non-extensible) on the clone
+- Clones: Array, Object, Date, RegExp (with lastIndex), Map, Set, ArrayBuffer, SharedArrayBuffer, DataView, TypedArrays, Error (+ custom fields), wrapper objects, Node Buffer, URL, URLSearchParams
+- Returns as-is: Promise, WeakMap, WeakSet, functions
 
 ## API
-
 ```js
 import { deepCopy } from './deep-copy.js';
-
 const clone = deepCopy(value);
 ```
 
-- Signature: `deepCopy(input, cache?)`
-- Time: O(N) over the traversed graph
-- Space: O(N) for cache + clone graph
-
 ## Layout
-
-- `deep-copy.js` – the implementation
-- `samples/` – runnable examples (standalone ES modules)
+- `deep-copy.js` – core implementation
+- `index.js` – orchestrates all samples; safe to import without side effects
+- `samples/` – Pokémon-themed demonstrations (each file exports `run()`)
 
 ## How to run
-
-Using the npm scripts defined in `javascript/package.json`:
-
+From the `javascript` directory:
 ```bash
-# Run all deep-copy examples entry
 npm run start-deep-copy
-
-# Hot-reload examples during development (requires nodemon)
+# or live-reload
 npm run dev-deep-copy
 ```
 
-You can still run any specific file in `samples/` directly if you prefer.
-
-## Reviewer notes
-
-- The samples focus on tricky runtime entities (symbols, non-enumerables, DataView offsets, RegExp.lastIndex, lock states, cyclic graphs, etc.).
-- The Pokémon theme keeps structures readable while still exercising deep copy semantics thoroughly.
+## Notes for reviewers
+- Samples mutate the copy to prove references are broken and prototypes/descriptors preserved.
+- Console output uses small, consistently named fields; see `samples/README.md` for a field guide.
