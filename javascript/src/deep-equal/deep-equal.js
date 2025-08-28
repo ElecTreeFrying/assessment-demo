@@ -1,11 +1,57 @@
-
-export function check(label, a, b, expected) {
-  const got = isDeepEqual(a, b);
-  const pass = got === expected ? "PASS" : "FAIL";
-  console.log(`[${pass}] ${label} → ${got}`);
-};
-
+/**
+ * Deep structural equality with the special exam rule: **`null` and `undefined` are equal.**
+ *
+ * - Handles primitives (including `NaN`), arrays, plain/custom objects, and many built-ins.
+ * - Detects and correctly compares cyclic structures via a `WeakMap` visit cache.
+ * - Cross-realm safe detection using `Object.prototype.toString.call(x)` (the “brand”).
+ * - Prototype-aware: two objects with different prototypes are **not** equal.
+ * - Own keys compared as the **union of keys (including Symbols)**; descriptor flags are ignored.
+ * - Missing property (`undefined`) equals explicit `null` due to the exam rule.
+ *
+ * **Supported types & rules**
+ *  - Arrays: element-wise, same length.
+ *  - Date: `getTime()` equality.
+ *  - RegExp: `source`, `flags`, and `lastIndex`.
+ *  - Map: order-independent; deep equality of keys **and** values.
+ *  - Set: order-independent; deep equality of members.
+ *  - ArrayBuffer / SharedArrayBuffer: byte-wise equality.
+ *  - DataView: byteLength/byteOffset and byte-wise equality.
+ *  - TypedArrays (incl. Node.js `Buffer`): same constructor, same length, element-wise equality.
+ *  - Error: `name` and `message` must match; extra own props compared like normal keys.
+ *  - Wrapper objects (`new String/Number/Boolean`): `valueOf()` must match.
+ *  - URL / URLSearchParams: `href` / `.toString()` equality.
+ *  - Blob / File: size/type (+ File: name & lastModified).
+ *  - Headers: compared as a Map of entries (case-insensitive per spec).
+ *  - FormData: compared as an array of `[name, value]` entries (values may be strings or Blobs).
+ *  - Request / Response: compares stable metadata fields (bodies/streams are not consumed).
+ *  - Intl.* (Collator/DateTimeFormat/NumberFormat/PluralRules/RelativeTimeFormat/ListFormat/
+ *    DisplayNames/Segmenter): compares `resolvedOptions()`.
+ *  - WeakRef: compares dereferenced targets (best-effort).
+ *  - DOM Nodes: uses `isEqualNode` when available (browser only).
+ *  - WeakMap / WeakSet / Promise: **reference equality only** (if not `===`, they are unequal).
+ *  - Functions: only equal by reference (covered by the initial `===` fast path).
+ *  - Numbers: `NaN` equals `NaN`; `-0` and `0` are considered equal (same as `===`).
+ *
+ * **Complexity**
+ *  - Time: O(N) over the total number of elements/entries/bytes visited.
+ *  - Space: O(N) for recursion + `seen` cache on cyclic graphs.
+ *
+ * @param {*} a                          First value to compare.
+ * @param {*} b                          Second value to compare.
+ * @param {WeakMap<object, object>} [seen=new WeakMap()]
+ *        Internal cache to detect and short-circuit cycles (`a` node already matched to `b`).
+ * @returns {boolean}                    Whether `a` and `b` are deeply equal under the rules above.
+ *
+ * @example
+ * isDeepEqual({ a: 1, b: { c: 'x', d: null } }, { a: 1, b: { c: 'x' } }); // true  (null ≍ undefined)
+ *
+ * @example
+ * const a = { n: 1 }; a.self = a;
+ * const b = { n: 1 }; b.self = b;
+ * isDeepEqual(a, b); // true (cycles handled)
+ */
 export function isDeepEqual(a, b, seen = new WeakMap()) {
+  
   // Treat null & undefined as equal
   if (a == null && b == null) return true;
   // If only one side is nullish, not equal (handles object vs null)
@@ -224,3 +270,29 @@ export function isDeepEqual(a, b, seen = new WeakMap()) {
   }
   return true;
 }
+
+/**
+ * Tiny test helper for demos: runs `isDeepEqual(a, b)`, compares the result
+ * with an expected boolean, and logs a single-line verdict to the console.
+ *
+ * Format: `[PASS|FAIL] <label> → <got>`
+ *
+ * @param {string} label    Human-readable description of the case.
+ * @param {*} a             First value to compare.
+ * @param {*} b             Second value to compare.
+ * @param {boolean} expected The expected outcome of `isDeepEqual(a, b)`.
+ * @returns {void}
+ *
+ * @example
+ * check("null ≍ undefined", null, undefined, true);
+ * // [PASS] null ≍ undefined → true
+ *
+ * @example
+ * check("different dates", new Date("2020-01-01"), new Date("2021-01-01"), false);
+ * // [PASS] different dates → false
+ */
+export function check(label, a, b, expected) {
+  const got = isDeepEqual(a, b);
+  const pass = got === expected ? "PASS" : "FAIL";
+  console.log(`[${pass}] ${label} → ${got}`);
+};

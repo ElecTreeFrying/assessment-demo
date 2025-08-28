@@ -1,38 +1,52 @@
 /**
- * deepCopy(input, cache?)
+ * Deeply clones a JavaScript value with broad built-in support and strong guarantees:
  *
- * Purpose
- * - Produce a structural clone of arbitrary JavaScript values while preserving:
- *   - Prototype chain for objects and class instances
- *   - Property descriptors (including non-enumerable, getters/setters) and symbols
- *   - Special object semantics (Date, RegExp.lastIndex, Map/Set entries, typed arrays, etc.)
- * - Avoid infinite recursion via a WeakMap cache and correctly replicate cyclic graphs
- * - Mirror the “lock state” (frozen / sealed / non-extensible) of the source object on the clone
+ * - **Recurses** through arrays, objects, and nested structures.
+ * - **Preserves prototypes, own property descriptors, getters/setters, and Symbols.**
+ * - **Handles cycles** using a WeakMap cache.
+ * - **Clones**: Array, Object, Date, RegExp, Map, Set, ArrayBuffer, SharedArrayBuffer,
+ *   DataView, all TypedArrays (incl. Node.js Buffer), URL, URLSearchParams, Error (incl. extra fields),
+ *   and wrapper objects (new String/Number/Boolean).
+ * - **Returns by reference** (not cloned): Promise, WeakMap, WeakSet, and functions.
+ * - **Mirrors lock state** (non-extensible / sealed / frozen) from the source onto the clone **after** population.
  *
- * Design notes
- * - Primitives and functions are returned as-is; cloning them is either meaningless or unsafe
- * - Promise / WeakMap / WeakSet are returned by reference because:
- *   - Promises encapsulate async state that is not safely duplicate-able
- *   - Weak collections are non-enumerable by design and cannot be “cloned” meaningfully
- * - Node Buffer, ArrayBuffer, SharedArrayBuffer, DataView, and TypedArrays are copied by bytes
- * - Error instances preserve constructor, message, name, optional stack, and all own props
- * - Map keys and values, and Set values, are deep-copied recursively
- * - URL and URLSearchParams are reconstructed from their string representations
+ * Notes:
+ * - Functions are returned as-is (code/closure cloning is not meaningful).
+ * - Streams/DOM nodes are not specially handled.
+ * - For performance, only **own** properties are copied (including non-enumerables & Symbols).
  *
- * Complexity
- * - Time: O(N) over the traversed object graph
- * - Space: O(N) for the cache plus the cloned graph
+ * @template T
+ * @param {T} input                               Value to deep-clone.
+ * @param {WeakMap<object, any>} [cache=new WeakMap()]  Internal cache to break cycles and preserve graph shape.
+ * @returns {T}                                   A structurally independent deep clone of `input`.
  *
- * Parameters
- * - input: unknown value to clone
- * - cache: WeakMap used to track already-cloned references (handles cycles and shared refs)
+ * @example
+ * const a = { n: 1, d: new Date(), r: /x/g, m: new Map([[{k:1},{v:2}]]) };
+ * const b = deepCopy(a);
+ * b.m.forEach(v => v.v = 9);
+ * console.log(a.m.values().next().value.v); // 2 (unchanged)
  *
- * Returns
- * - A deep clone for supported structures, or the original reference for returned-as-is types
+ * @example
+ * // Cycles:
+ * const x = { name: 'root' }; x.self = x;
+ * const y = deepCopy(x);
+ * console.log(y !== x, y.self === y); // true, true
  */
 export function deepCopy(input, cache = new WeakMap()) {
 
-  // Mirror preventExtensions / seal / freeze AFTER populating the clone
+  /**
+   * Apply the same "lock" state of `source` to `clone`:
+   * - if `source` is frozen  → freeze `clone`
+   * - if `source` is sealed  → seal `clone`
+   * - if `source` is non-extensible → prevent extensions on `clone`
+   *
+   * Must be called **after** the clone has been fully populated,
+   * otherwise sealing/freezing would block property definition.
+   *
+   * @param {any} clone
+   * @param {any} source
+   * @returns {any} The same `clone`, with lock state mirrored.
+   */
   const mirrorLockState = (clone, source) => {
     if (Object.isFrozen(source))       return Object.freeze(clone);
     if (Object.isSealed(source))       return Object.seal(clone);
@@ -40,14 +54,14 @@ export function deepCopy(input, cache = new WeakMap()) {
     return clone;
   };
 
-  // Primitives & functions: return as-is
+  // ----- Primitives & functions: return as-is -----
   if (input === null || typeof input !== "object") return input;
   if (typeof input === "function") return input;
 
-  // Cycles
+  // ----- Cycles -----
   if (cache.has(input)) return cache.get(input);
 
-  // Arrays
+  // ----- Arrays -----
   if (Array.isArray(input)) {
     const arr = new Array(input.length);
     cache.set(input, arr);
@@ -55,17 +69,17 @@ export function deepCopy(input, cache = new WeakMap()) {
     return mirrorLockState(arr, input);
   }
 
-  // Date
+  // ----- Date -----
   if (input instanceof Date) return mirrorLockState(new Date(input.getTime()), input);
 
-  // RegExp
+  // ----- RegExp -----
   if (input instanceof RegExp) {
     const re = new RegExp(input.source, input.flags);
     re.lastIndex = input.lastIndex;
     return mirrorLockState(re, input);
   }
 
-  // URL / URLSearchParams
+  // ----- URL / URLSearchParams -----
   if (typeof URL !== "undefined" && input instanceof URL) {
     return mirrorLockState(new URL(input.toString()), input);
   }
@@ -73,7 +87,7 @@ export function deepCopy(input, cache = new WeakMap()) {
     return mirrorLockState(new URLSearchParams(input.toString()), input);
   }
 
-  // Map
+  // ----- Map -----
   if (input instanceof Map) {
     const m = new Map();
     cache.set(input, m);
@@ -81,7 +95,7 @@ export function deepCopy(input, cache = new WeakMap()) {
     return mirrorLockState(m, input);
   }
 
-  // Set
+  // ----- Set -----
   if (input instanceof Set) {
     const s = new Set();
     cache.set(input, s);
@@ -89,33 +103,33 @@ export function deepCopy(input, cache = new WeakMap()) {
     return mirrorLockState(s, input);
   }
 
-  // ArrayBuffer
+  // ----- ArrayBuffer -----
   if (input instanceof ArrayBuffer) {
     return mirrorLockState(input.slice(0), input);
   }
   
-  // SharedArrayBuffer
+  // ----- SharedArrayBuffer -----
   if (typeof SharedArrayBuffer !== "undefined" && input instanceof SharedArrayBuffer) {
     const copy = new SharedArrayBuffer(input.byteLength);
     new Uint8Array(copy).set(new Uint8Array(input));
     return mirrorLockState(copy, input);
   }
 
-  // DataView
+  // ----- DataView -----
   if (input instanceof DataView) {
     const bufCopy = deepCopy(input.buffer, cache);
     const view = new DataView(bufCopy, input.byteOffset, input.byteLength);
     return mirrorLockState(view, input);
   }
 
-  // Typed arrays (Int8Array, Uint8Array, Float32Array, etc.)
+  // ----- Typed arrays (Int8Array, Uint8Array, Float32Array, etc.) -----
   if (ArrayBuffer.isView(input)) {
     const Ctor = input.constructor;
     const ta = new Ctor(input);
     return mirrorLockState(ta, input);
   }
 
-  // Error (preserve fields + own props)
+  // ----- Error (preserve fields + own props) -----
   if (input instanceof Error) {
     const copy = new input.constructor(input.message);
     copy.name = input.name;
@@ -131,23 +145,23 @@ export function deepCopy(input, cache = new WeakMap()) {
     return mirrorLockState(copy, input);
   }
 
-  // Wrapper objects
+  // ----- Wrapper objects -----
   if (input instanceof String || input instanceof Number || input instanceof Boolean) {
     const Ctor = input.constructor;
     return mirrorLockState(new Ctor(input.valueOf()), input);
   }
 
-  // Node Buffer (if present)
+  // ----- Node Buffer (if present) -----
   if (typeof Buffer !== "undefined" && Buffer.isBuffer && Buffer.isBuffer(input)) {
     return mirrorLockState(Buffer.from(input), input);
   }
 
-  // Promise / WeakMap / WeakSet → return by reference (not meaningfully cloneable)
+  // ----- Promise / WeakMap / WeakSet → return by reference (not meaningfully cloneable) -----
   if (input instanceof Promise || input instanceof WeakMap || input instanceof WeakSet) {
     return input;
   }
 
-  // Generic objects / class instances: preserve prototype + descriptors + symbols
+  // ----- Generic objects / class instances: preserve prototype + descriptors + symbols -----
   const proto = Object.getPrototypeOf(input);
   const out = Object.create(proto);
   cache.set(input, out);
