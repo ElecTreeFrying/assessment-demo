@@ -49,8 +49,9 @@
  * // area ≈ 78.5398
  */
 export function execute(code, variables = {}) {
+
   if (typeof code !== 'string') throw new TypeError('code must be a string');
-  if (variables == null || typeof variables !== 'object') variables = {};
+  if (variables == null || typeof variables !== 'object') throw new TypeError('variables must be an object');
 
   // (c) Choose a name visible in DevTools/Node inspector.
   const name = typeof variables.$name === 'string'

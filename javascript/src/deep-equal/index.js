@@ -31,6 +31,8 @@ import { run as runHeadersCasing } from './samples/headers-casing.js';
 import { run as runDomTextFragments } from './samples/dom-text-and-fragments.js';
 
 console.log('@@@\n\n\n\n\n');
+
+runExample();
 runPrimitives();
 runArrays();
 runPlainObjects();
@@ -61,9 +63,5 @@ runTypedViews();
 runMapSetEdgeKeys();
 runHeadersCasing();
 runDomTextFragments();
-
-console.log('@@@\n\n');
-
-runExample();
 
 console.log('\n\n\n\n\n\n\n\n\n\n@@@');
