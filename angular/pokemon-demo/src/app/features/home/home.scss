@@ -1,0 +1,31 @@
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--mix) 50%, var(--lime) 100%);
+  backdrop-filter: blur(5px);
+  color:#fff;
+  $offsetTop: 20dvh;
+  height: calc(100dvh - $offsetTop);
+  padding-top: $offsetTop;
+
+  .host--image {
+    width: 240px;
+    height: auto;
+    margin-bottom: 24px;
+  }
+  
+  .host--header {
+    margin-bottom: 16px;
+  }
+  
+  .host--info {
+    margin-bottom: 32px;
+  }
+
+  .host--actions {
+    display: flex;
+    gap: 24px;
+  }
+}

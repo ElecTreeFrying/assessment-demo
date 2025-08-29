@@ -1,0 +1,73 @@
+
+@mixin gradientText {
+  background-clip: text;
+  text-fill-color: transparent;
+  color: transparent; background-size: 200% auto;
+  animation: shine 4s linear infinite;
+  margin-bottom: 0;
+}
+
+button {
+  appearance: none;
+  border: 0;
+  padding: 0.625rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  background: var(--mix);
+  box-shadow: var(--mat-sys-level3);
+  font-size: 16px;
+  transition: --angle 2s;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    --angle: 270deg;
+  }
+}
+
+.action-red {
+  border: 4px solid transparent;
+  color: var(--action-red);
+  background:
+    linear-gradient(white 0 0) padding-box,
+    linear-gradient(var(--angle), var(--action-red), var(--lime)) border-box;
+
+  .host--text {
+    background: linear-gradient(
+      to right,
+      var(--action-red), var(--lime), var(--action-red)
+    );
+    @include gradientText;
+  }
+}
+
+.action-purple {
+  border: 4px solid transparent;
+  color: var(--action-purple);
+  background:
+    linear-gradient(white 0 0) padding-box,
+    linear-gradient(var(--angle), var(--action-purple), var(--lime)) border-box;
+
+  .host--text {
+    background: linear-gradient(
+      to right,
+      var(--action-purple), var(--lime), var(--action-purple)
+    );
+    @include gradientText;
+  }
+}
+
+@property --angle {
+	syntax: '<angle>';
+	inherits: true;
+	initial-value: -45deg;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}

@@ -1,0 +1,10 @@
+
+router-outlet + * {
+  opacity: 0;
+  animation: routeFadeIn 200ms ease-in-out forwards;
+}
+
+@keyframes routeFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
