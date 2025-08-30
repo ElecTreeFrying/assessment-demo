@@ -16,8 +16,11 @@
     "module": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@ect/ui/button": ["./src/app/ui/button"],
-      "@ect/ui/demo-nav": ["src/app/ui/demo-nav"]
+      "@ect/api/pokemon-legendary": ["src/app/data-access/api/pokemon-legendary"],
+      "@ect/ui/button": ["src/app/ui/button"],
+      "@ect/ui/demo-nav": ["src/app/ui/demo-nav"],
+      "@ect/styles/*": ["src/app/styles/*"],
+      "@ect/ui/custom-card": ["src/app/ui/custom-card"]
     }
   },
   "angularCompilerOptions": {

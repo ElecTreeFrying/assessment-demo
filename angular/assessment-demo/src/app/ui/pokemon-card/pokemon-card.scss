@@ -1,0 +1,155 @@
+@use 'styles/text-animations' as textAnimation;
+@use 'styles/element-styles' as elementStyles;
+@use 'styles/text-styles' as textStyles;
+
+.ect-pokemon-card {
+  position: relative;
+  border-radius: 14px;
+  box-shadow: var(--mat-sys-level5);
+  user-select: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+
+  &.gradient-red p {
+    @include textAnimation.gradientText(var(--action-red), var(--lime));
+  }
+
+  &.gradient-purple p {
+    @include textAnimation.gradientText(var(--action-purple), var(--lime));
+  }
+
+  > * {
+    position: relative;
+    z-index: 2;
+  }
+  &::before {
+    position: absolute;
+    content: "";
+    $offset: 2px;
+    width: calc(100% + $offset*2);
+    height: calc(100% + $offset*2);
+    margin: -$offset;
+    left: 0;
+    background: tomato;
+    border-radius: 14px;
+    z-index: -5;
+    transition: 0.3s;
+    animation: animate 2s linear infinite;
+    box-shadow: var(--mat-sys-level3);
+  }
+  &:hover::before {
+    $offset: 6px;
+    width: calc(100% + $offset*2);
+    height: calc(100% + $offset*2);
+    margin: -$offset;
+  }
+  .host--background, .host--ripple {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background: white;
+    border-radius: 14px;
+  }
+  .host--ripple {
+    background: rgba(white, 0);
+    z-index: 3;
+  }
+  .host--id {
+    position: absolute;
+    $position: 12px;
+    top: $position;
+    left: $position;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .host--image {
+    display: block;
+    width: 200px;
+    height: auto;
+    margin: 0 auto;
+    aspect-ratio: 1/1;
+  }
+  .host--name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .host--description {
+    @include textStyles.ellipses(2);
+    font-weight: 600;
+    margin-bottom: 8px;
+    height: 43px;
+    padding: 0 12px;
+  }
+  .host--meta {
+    display: flex;
+    padding: 0 12px 12px;
+
+    &-item {
+      flex: 0 1 100%;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 0;
+      border-radius: 4px;
+    }
+  }
+}
+
+@keyframes animate {
+  50% {
+    filter: hue-rotate(350deg);
+  }
+}
+
+// @use 'styles/text-animations' as textAnimation;
+// @use 'styles/element-styles' as elementStyles;
+
+// .ect-pokemon-card {
+//   position: relative;
+//   display: block;
+//   padding: 0 12px 12px;
+//   width: 100%;
+//   max-width: 420px;
+//   border-radius: 14px;
+//   box-shadow: var(--mat-sys-level5);
+//   user-select: none;
+//   cursor: pointer;
+//   border: 4px solid rgba(white, 0.28);
+//   p { @include textAnimation.gradientText(var(--lime), white); }
+
+//   .host--id {
+//     position: absolute;
+//     $position: 12px;
+//     top: $position;
+//     left: $position;
+//     font-size: 20px;
+//     font-weight: 700;
+//   }
+//   .host--image {
+//     display: block;
+//     width: 200px;
+//     height: auto;
+//     margin: 0 auto;
+//     aspect-ratio: 1/1;
+//   }
+//   .host--name {
+//     font-size: 20px;
+//     font-weight: 700;
+//     margin-bottom: 8px;
+//   }
+//   .host--description {
+//     font-weight: 600;
+//     margin-bottom: 10px;
+//   }
+//   .host--meta {
+//     display: flex;
+//     &-item {
+//       flex: 0 1 100%;
+//       font-size: 14px;
+//       font-weight: 500;
+//       margin-bottom: 0;
+//     }
+//   }
+// }

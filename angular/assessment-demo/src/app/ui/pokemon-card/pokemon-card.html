@@ -1,0 +1,11 @@
+<div class="host--background"></div>
+<div class="host--ripple" matRipple></div>
+<p class="host--id">#{{ pokemon().nationalDexId }}</p>
+<img class="host--image" [ngSrc]="pokemon().artwork || ''" width="1" height="1" [alt]="pokemon().displayName || ''" />
+<p class="host--name">{{ pokemon().displayName }}</p>
+<p class="host--description">{{ pokemon().description }}</p>
+<div class="host--meta">
+  <p class="host--meta-item">Height: {{ pokemon().heightM }} m</p>
+  <p class="host--meta-item">Weight: {{ pokemon().weightKg }} kg</p>
+  <p class="host--meta-item">Color: {{ pokemon().color }}</p>
+</div>

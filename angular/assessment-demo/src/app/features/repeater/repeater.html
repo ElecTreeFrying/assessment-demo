@@ -6,3 +6,11 @@
   <ect-demo-nav-text>Repeater Template Demo</ect-demo-nav-text>
 
 </ect-demo-nav>
+
+<div class="host--card-grid">
+
+  @for (pokemon of pokemonLegendaryApi.legendaries$ | async; track pokemon) {
+    <ect-pokemon-card [pokemon]="pokemon" gradientPurple></ect-pokemon-card>
+  }
+
+</div>

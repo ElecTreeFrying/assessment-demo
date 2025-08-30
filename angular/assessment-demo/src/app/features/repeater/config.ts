@@ -1,19 +1,24 @@
 import { RouterModule } from '@angular/router';
-import { NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 
 import { DemoNav, DemoNavImage, DemoNavText } from '@ect/ui/demo-nav';
+import { RepeaterService } from './repeater-service';
+import { PokemonCard } from 'src/app/ui/pokemon-card';
 
 const COMPONENTS = [
   DemoNav,
   DemoNavImage,
-  DemoNavText
+  DemoNavText,
+  PokemonCard
 ];
 
 export const imports = [
   RouterModule,
+  AsyncPipe,
   NgOptimizedImage,
   COMPONENTS
 ];
 
 export const viewProviders = [
+  RepeaterService
 ];

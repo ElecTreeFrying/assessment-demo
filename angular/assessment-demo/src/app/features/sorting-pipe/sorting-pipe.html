@@ -2,7 +2,15 @@
 <ect-demo-nav>
 
   <img ectDemoNavImage ngSrc="https://www.ect-telecoms.com/wp-content/uploads/2021/10/ect-logo-white.svg" width="1" height="1" alt="ECT logo" />
-
+  
   <ect-demo-nav-text>Custom Sort Pipe Demo</ect-demo-nav-text>
-
+  
 </ect-demo-nav>
+
+<div class="host--card-grid">
+
+  @for (pokemon of pokemonLegendaryApi.legendaries$ | async; track pokemon) {
+    <ect-pokemon-card [pokemon]="pokemon" gradientRed></ect-pokemon-card>
+  }
+
+</div>

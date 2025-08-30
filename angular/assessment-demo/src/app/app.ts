@@ -1,11 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
+import { imports, viewProviders } from './host/config';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.html',
-  styleUrl: './app.scss',
+  templateUrl: './host/app.html',
+  styleUrl: './host/app.scss',
   encapsulation: ViewEncapsulation.None,
-  imports: [ RouterOutlet ]
+  imports, viewProviders
 })
 export class App { }

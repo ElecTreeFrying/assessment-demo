@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { imports, viewProviders } from './config';
+import { PokemonLegendaryApiService } from '@ect/api/pokemon-legendary';
 
 @Component({
   selector: 'app-sorting-pipe',
@@ -9,6 +10,7 @@ import { imports, viewProviders } from './config';
   imports, viewProviders
 })
 export class SortingPipe {
+
+  pokemonLegendaryApi = inject(PokemonLegendaryApiService);
+
 } 
-
-
