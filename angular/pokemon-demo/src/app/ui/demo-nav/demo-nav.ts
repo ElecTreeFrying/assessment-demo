@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { imports, viewProviders } from './config';
 
 @Component({
   selector: 'ect-demo-nav',
   templateUrl: './demo-nav.html',
-  styleUrls: ['./demo-nav.scss'],
-  imports: imports, viewProviders
+  styleUrls: ['./demo-nav.scss', './demo-nav-ui-styles.scss'],
+  host: {
+    class: 'ect-demo-nav'
+  },
+  encapsulation: ViewEncapsulation.None,
+  imports, viewProviders
 })
-export class DemoNav {
-} 
-
-
+export class DemoNav { } 
