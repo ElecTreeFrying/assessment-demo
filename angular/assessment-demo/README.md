@@ -10,6 +10,9 @@ npm start
 # open http://localhost:4200
 ```
 
+### Live demo
+- Deployed on Firebase Hosting: https://ect-assessment-demo.web.app
+
 ## Folder structure (high level)
 
 ```
@@ -84,6 +87,7 @@ The build is configured with `stylePreprocessorOptions.includePaths: ['src']` so
 - Angular 20.2.2 standalone APIs, signals, and the new control flow – [Angular Docs](https://angular.dev/)
 - Angular Material (ripple, icon, tooltip) – [Material docs](https://material.angular.io/)
 - PokeAPI – [https://pokeapi.co/](https://pokeapi.co/)
+- Firebase Hosting – [https://firebase.google.com/docs/hosting](https://firebase.google.com/docs/hosting)
 
 ### Development
 ```bash

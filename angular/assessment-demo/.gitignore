@@ -42,4 +42,5 @@ testem.log
 Thumbs.db
 
 # Development
+.firebase
 demo-data
