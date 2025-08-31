@@ -11,6 +11,3 @@ export const imports = [
   JsonPipe,
   COMPONENTS
 ];
-
-export const viewProviders = [
-];

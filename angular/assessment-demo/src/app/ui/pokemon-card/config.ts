@@ -5,6 +5,3 @@ export const imports = [
   NgOptimizedImage,
   MatRippleModule
 ];
-
-export const viewProviders = [
-];

@@ -5,8 +5,3 @@ export const imports = [
   RouterLink,
   NgOptimizedImage
 ];
-
-export const viewProviders = [
-];
-
-

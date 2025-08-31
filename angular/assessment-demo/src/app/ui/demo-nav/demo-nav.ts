@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { imports, viewProviders } from './config';
+import { imports } from './config';
 
 @Component({
   selector: 'ect-demo-nav',
@@ -10,6 +10,6 @@ import { imports, viewProviders } from './config';
     class: 'ect-demo-nav'
   },
   encapsulation: ViewEncapsulation.None,
-  imports, viewProviders
+  imports
 })
 export class UiDemoNav { } 

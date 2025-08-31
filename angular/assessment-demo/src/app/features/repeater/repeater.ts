@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { imports, viewProviders } from './config';
+import { imports } from './config';
 import { PokemonLegendaryApiService } from '@ect/api/pokemon-legendary';
 
 export type Item = { id: number; name: string };
@@ -9,10 +9,10 @@ export type Item = { id: number; name: string };
   selector: 'app-repeater',
   templateUrl: './repeater.html',
   styleUrls: ['./repeater.scss'],
-  imports, viewProviders
+  imports
 })
 export class Repeater {
 
-  pokemonLegendaryApi = inject(PokemonLegendaryApiService);
+  readonly pokemonLegendaryApi = inject(PokemonLegendaryApiService);
 
-} 
+}

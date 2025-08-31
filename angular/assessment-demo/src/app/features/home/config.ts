@@ -12,6 +12,3 @@ export const imports = [
   NgOptimizedImage,
   LIBRARIES
 ];
-
-export const viewProviders = [
-];

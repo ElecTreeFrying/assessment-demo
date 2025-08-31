@@ -10,10 +10,10 @@ import { responseToPokeDetail, sortById } from './utils';
 })
 export class PokemonLegendaryApiService {
 
-  private http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   readonly legendaries$ = from(LEGENDARY_IDS).pipe(
-    mergeMap((id) => forkJoin({
+    mergeMap((id: number) => forkJoin({
       pokemon: this.http.get<Pokemon>(`${POKEAPI_ENDPOINT}/pokemon/${id}`),
       species: this.http.get<Species>(`${POKEAPI_ENDPOINT}/pokemon-species/${id}`),
     }), 8),

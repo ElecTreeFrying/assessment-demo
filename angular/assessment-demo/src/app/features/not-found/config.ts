@@ -10,6 +10,3 @@ export const imports = [
   RouterLink,
   COMPONENTS
 ];
-
-export const viewProviders = [
-];

@@ -16,6 +16,3 @@ export const imports = [
   COMPONENTS,
   DIRECTIVES
 ];
-
-export const viewProviders = [
-];

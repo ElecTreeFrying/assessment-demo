@@ -1,5 +1,5 @@
 import { RouterModule } from '@angular/router';
-import { AsyncPipe, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, JsonPipe, NgOptimizedImage } from '@angular/common';
 
 import { UiDemoNav, UiDemoNavImage, UiDemoNavText } from '@ect/ui/demo-nav';
 import { TemplateRepeater } from './template-repeater';
@@ -17,8 +17,6 @@ export const imports = [
   RouterModule,
   AsyncPipe,
   NgOptimizedImage,
-  COMPONENTS
-];
-
-export const viewProviders = [
+  COMPONENTS,
+  JsonPipe
 ];

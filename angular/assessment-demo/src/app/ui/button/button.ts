@@ -1,6 +1,6 @@
 import { Component, booleanAttribute, input } from '@angular/core';
 
-import { imports, viewProviders } from './config';
+import { imports } from './config';
 
 @Component({
   selector: 'ect-button',
@@ -9,7 +9,7 @@ import { imports, viewProviders } from './config';
   host: {
     class: 'ect-button'
   },
-  imports, viewProviders
+  imports
 })
 export class UiButton {
 

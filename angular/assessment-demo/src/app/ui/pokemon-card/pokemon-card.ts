@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, booleanAttribute, input } from '@angular/core';
 
-import { imports, viewProviders } from './config';
+import { imports } from './config';
 import { PokeDetail } from '@ect/api/pokemon-legendary';
 
 @Component({
@@ -13,7 +13,7 @@ import { PokeDetail } from '@ect/api/pokemon-legendary';
     '[class.gradient-purple]': 'gradientPurple()'
   },
   encapsulation: ViewEncapsulation.None,
-  imports, viewProviders,
+  imports,
 })
 export class UiPokemonCard {
 

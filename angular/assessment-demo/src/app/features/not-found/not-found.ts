@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { imports, viewProviders } from './config';
+import { imports } from './config';
 
 @Component({
   selector: 'app-not-found',
   templateUrl: './not-found.html',
   styleUrls: ['./not-found.scss', './not-found-responsiveness.scss'],
-  imports, viewProviders
+  imports
 })
 export class NotFound {
 } 

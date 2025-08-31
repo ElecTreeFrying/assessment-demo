@@ -1,26 +1,45 @@
 import { Component, TemplateRef, input, contentChild, computed } from '@angular/core';
 
-import { imports, viewProviders } from './config';
+/**
+ * TemplateRepeater
+ *
+ * A lightweight, reusable repeater that renders a projected template once for
+ * every element of an input array. The projected template receives the current
+ * item as both `$implicit` and `item` to enable `let-item` syntax.
+ *
+ * Usage:
+ *   <repeater [option]="items">
+ *     <ng-template let-item>
+ *       <div>{{ item.name }}</div>
+ *     </ng-template>
+ *   </repeater>
+ *
+ * Notes:
+ * - If no template is provided, a `defaultTemplate` is used for graceful
+ *   fallback rendering.
+ */
 
-type Context<T> = {
-  $implicit: T; item: T;
-  index: number; count: number;
-  first: boolean; last: boolean; even: boolean; odd: boolean;
+import { imports } from './config';
+
+/** Context available to the projected template for each item. */
+interface Context<T> {
+  $implicit: T;
+  item: T
 };
 
 @Component({
   selector: 'repeater',
-  imports, viewProviders,
+  imports,
   template: `
 
     <ng-template #defaultTemplate let-item>
       <ect-pokemon-card [pokemon]="item" gradientPurple></ect-pokemon-card>
     </ng-template>
 
-    @for (templateItem of items();let index = $index; track templateItem) {
+    @for (data of items();track data) {
       <ng-container
         [ngTemplateOutlet]="template() || defaultTemplate"
-        [ngTemplateOutletContext]="context(index, templateItem)">
+        [ngTemplateOutletContext]="context(data)">
       </ng-container>
     }
 
@@ -28,28 +47,18 @@ type Context<T> = {
 })
 export class TemplateRepeater<T = unknown> {
 
-  /** Array to repeat over (required) */
-  readonly option = input.required<readonly T[]>({ alias: 'option' });
-
-  /** Projected template; accessed as a signal */
+  /** Source data (required). */
+  readonly option = input.required<readonly T[]>();
+  /** Projected template, exposed as a signal. */
   readonly template = contentChild<TemplateRef<Context<T>>>(TemplateRef);
-
-  // --- derived signals ---
+  /** Derived snapshot of items (never null). */
   readonly items = computed<readonly T[]>(() => this.option() ?? []);
-  readonly count = computed(() => this.items().length);
 
-  // Build the template context for each item
-  context(index: number, templateItem: T): Context<T> {
-    const count = this.count();
+  /** Build the template context for a given item. */
+  context(data: T): Context<T> {
     return {
-      $implicit: templateItem,
-      item: templateItem,
-      index,
-      count,
-      first: index === 0,
-      last: index === count - 1,
-      even: index % 2 === 0,
-      odd: index % 2 === 1,
+      $implicit: data,
+      item: data
     };
   }
 

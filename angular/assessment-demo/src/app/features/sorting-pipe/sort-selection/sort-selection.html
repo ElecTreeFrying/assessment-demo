@@ -3,19 +3,59 @@
 
 <div class="host--sort">
 
-  <ect-button actionRed tooltip="Sort by Id (low → high)" (click)="sort.emit('id')" [class.is-active]="selected() === 'id'">Pokèdex Id</ect-button>
-  <ect-button actionRed tooltip="Sort by Id (high → low)" (click)="sort.emit('-id')" [class.is-active]="selected() === '-id'">-Pokèdex Id</ect-button>
+  <ect-button
+    actionRed tooltip="Sort by Id (low → high)"
+    [class.is-active]="selected() === 'id'" (click)="sort.emit('id')">
+    Pokèdex Id
+  </ect-button>
+  <ect-button
+    actionRed tooltip="Sort by Id (high → low)"
+    [class.is-active]="selected() === '-id'" (click)="sort.emit('-id')">
+    -Pokèdex Id
+  </ect-button>
 
-  <ect-button actionRed tooltip="Sort by name (A–Z)" (click)="sort.emit('name')" [class.is-active]="selected() === 'name'">Name</ect-button>
-  <ect-button actionRed tooltip="Sort by name (Z–A)" (click)="sort.emit('-name')" [class.is-active]="selected() === '-name'">-Name</ect-button>
+  <ect-button
+    actionRed tooltip="Sort by name (A–Z)"
+    [class.is-active]="selected() === 'name'" (click)="sort.emit('name')">
+    Name
+  </ect-button>
+  <ect-button
+    actionRed tooltip="Sort by name (Z–A)"
+    [class.is-active]="selected() === '-name'" (click)="sort.emit('-name')">
+    -Name
+  </ect-button>
 
-  <ect-button actionRed tooltip="Sort by height (low → high)" (click)="sort.emit('height')" [class.is-active]="selected() === 'height'">Height</ect-button>
-  <ect-button actionRed tooltip="Sort by height (high → low)" (click)="sort.emit('-height')" [class.is-active]="selected() === '-height'">-Height</ect-button>
+  <ect-button
+    actionRed tooltip="Sort by height (low → high)"
+    [class.is-active]="selected() === 'height'" (click)="sort.emit('height')">
+    Height
+  </ect-button>
+  <ect-button
+    actionRed tooltip="Sort by height (high → low)"
+    [class.is-active]="selected() === '-height'" (click)="sort.emit('-height')">
+    -Height
+  </ect-button>
 
-  <ect-button actionRed tooltip="Sort by weight (light → heavy)" (click)="sort.emit('weight')" [class.is-active]="selected() === 'weight'">Weight</ect-button>
-  <ect-button actionRed tooltip="Sort by weight (heavy → light)" (click)="sort.emit('-weight')" [class.is-active]="selected() === '-weight'">-Weight</ect-button>
+  <ect-button
+    actionRed tooltip="Sort by weight (light → heavy)"
+    [class.is-active]="selected() === 'weight'" (click)="sort.emit('weight')">
+    Weight
+  </ect-button>
+  <ect-button
+    actionRed tooltip="Sort by weight (heavy → light)"
+    [class.is-active]="selected() === '-weight'" (click)="sort.emit('-weight')">
+    -Weight
+  </ect-button>
 
-  <ect-button actionRed tooltip="Sort by color (A–Z)" (click)="sort.emit('color')" [class.is-active]="selected() === 'color'">Color</ect-button>
-  <ect-button actionRed tooltip="Sort by color (Z–A)" (click)="sort.emit('-color')" [class.is-active]="selected() === '-color'">-Color</ect-button>
+  <ect-button
+    actionRed tooltip="Sort by color (A–Z)"
+    [class.is-active]="selected() === 'color'" (click)="sort.emit('color')">
+    Color
+  </ect-button>
+  <ect-button
+    actionRed tooltip="Sort by color (Z–A)"
+    [class.is-active]="selected() === '-color'" (click)="sort.emit('-color')">
+    -Color
+  </ect-button>
 
 </div>

@@ -25,6 +25,3 @@ export const imports = [
   COMPONENTS,
   PIPES
 ];
-
-export const viewProviders = [
-];

@@ -5,6 +5,3 @@ export const imports = [
   MatRippleModule,
   MatTooltipModule
 ];
-
-export const viewProviders = [
-];

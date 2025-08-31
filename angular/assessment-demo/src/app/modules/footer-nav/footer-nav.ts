@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { imports, viewProviders } from './config';
+import { imports } from './config';
 
 @Component({
   selector: 'ect-footer-nav',
   templateUrl: './footer-nav.html',
   styleUrls: ['./footer-nav.scss', './footer-nav-responsiveness.scss'],
-  imports, viewProviders
+  imports
 })
 export class FooterNav {
 

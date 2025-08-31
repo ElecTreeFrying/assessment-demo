@@ -7,6 +7,3 @@ const COMPONENTS = [
 export const imports = [
   COMPONENTS
 ];
-
-export const viewProviders = [
-];

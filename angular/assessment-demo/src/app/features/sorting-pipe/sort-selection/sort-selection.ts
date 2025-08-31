@@ -1,12 +1,12 @@
 import { Component, input, output } from '@angular/core';
 
-import { imports, viewProviders } from './config';
+import { imports } from './config';
 
 @Component({
   selector: 'sort-selection',
   templateUrl: './sort-selection.html',
   styleUrls: ['./sort-selection.scss', './sort-selection-responsiveness.scss'],
-  imports, viewProviders
+  imports
 })
 export class SortSelection {
 

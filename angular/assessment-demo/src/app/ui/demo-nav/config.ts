@@ -9,6 +9,3 @@ export const imports = [
   MatIconModule,
   MatTooltipModule
 ];
-
-export const viewProviders = [
-];

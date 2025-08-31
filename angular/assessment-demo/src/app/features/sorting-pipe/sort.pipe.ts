@@ -3,6 +3,18 @@ import type { PokeDetail } from '@ect/api/pokemon-legendary';
 
 type SortKey = string;
 
+/**
+ * SortByPipe
+ *
+ * Purpose
+ * - Sorts an array of `PokeDetail` items by a provided key.
+ * - Supports ascending and descending order using a leading dash (`-`).
+ *
+ * Input
+ * - value: `PokeDetail[] | null | undefined` – the list to sort
+ * - sortKey: `string | null | undefined` – field to sort by. If it starts with `-`,
+ *   the result is returned in descending order.
+ */
 @Pipe({
   name: 'sortBy',
   pure: true,
@@ -10,17 +22,17 @@ type SortKey = string;
 })
 export class SortByPipe implements PipeTransform {
 
-  transform(items?: PokeDetail[] | null, sortKey?: SortKey | null): PokeDetail[] {
+  transform(pokemonList?: PokeDetail[] | null, requestedSortKey?: SortKey | null): PokeDetail[] {
 
-    if (!Array.isArray(items) || items.length === 0) return items ?? [];
+    if (!Array.isArray(pokemonList) || pokemonList.length === 0) return pokemonList ?? [];
 
-    const key = (sortKey ?? '').trim();
-    const descending = key.startsWith('-');
-    const rawProp = descending ? key.slice(1) : key;
-    if (!rawProp) return items;
+    const normalizedSortKey = (requestedSortKey ?? '').trim();
+    const isDescending = normalizedSortKey.startsWith('-');
+    const rawFieldKey = isDescending ? normalizedSortKey.slice(1) : normalizedSortKey;
+    if (!rawFieldKey) return pokemonList;
 
     // Map UI-facing keys to actual PokeDetail fields
-    const alias: Record<string, keyof PokeDetail> = {
+    const fieldAliasByKey: Record<string, keyof PokeDetail> = {
       name: 'displayName',
       color: 'color',
       height: 'heightM',
@@ -29,31 +41,35 @@ export class SortByPipe implements PipeTransform {
       heightM: 'heightM',
       weightKg: 'weightKg'
     };
-    const prop = alias[rawProp] ?? (rawProp as keyof PokeDetail);
+    const fieldKey = fieldAliasByKey[rawFieldKey] ?? (rawFieldKey as keyof PokeDetail);
 
-    const sorted = [...items].sort((a, b) => {
-      const va = a[prop] as unknown;
-      const vb = b[prop] as unknown;
+    const sortedByField = [ ...pokemonList ].sort((left: PokeDetail, right: PokeDetail) => {
+      const leftValue = left[fieldKey] as unknown;
+      const rightValue = right[fieldKey] as unknown;
 
-      if (va == null && vb == null) return 0;
-      if (va == null) return -1;
-      if (vb == null) return 1;
+      if (leftValue == null && rightValue == null) return 0;  // both missing → equal 
+      if (leftValue == null) return -1; // left missing  → comes before right
+      if (rightValue == null) return 1; // right missing → comes after left
 
-      if (typeof va === 'number' && typeof vb === 'number') {
-        return va - vb;
+      // Both numbers → numeric compare
+      if (typeof leftValue === 'number' && typeof rightValue === 'number') {
+        return leftValue - rightValue;
       }
-      // numeric-like strings → compare as numbers; else as strings
-      const na = Number(va);
-      const nb = Number(vb);
-      if (!Number.isNaN(na) && !Number.isNaN(nb)) {
-        return na - nb;
+      
+      // Both coercible to numbers (e.g., "12", "3") → numeric compare
+      const leftAsNumber = Number(leftValue);
+      const rightAsNumber = Number(rightValue);
+      if (!Number.isNaN(leftAsNumber) && !Number.isNaN(rightAsNumber)) {
+        return leftAsNumber - rightAsNumber;
       }
-      const sa = String(va).toLowerCase();
-      const sb = String(vb).toLowerCase();
-      return sa.localeCompare(sb);
+
+      // Compare as case-insensitive text
+      const leftAsString = String(leftValue).toLowerCase();
+      const rightAsString = String(rightValue).toLowerCase();
+      return leftAsString.localeCompare(rightAsString);
     });
 
-    return descending ? sorted.reverse() : sorted;
+    return isDescending ? sortedByField.reverse() : sortedByField;
   }
 }
 
