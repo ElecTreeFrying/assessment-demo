@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { imports, viewProviders } from './host/config';
+import { imports, viewProviders } from './config';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './host/app.html',
-  styleUrl: './host/app.scss',
+  templateUrl: './app.html',
+  styleUrl: './app.scss',
   encapsulation: ViewEncapsulation.None,
   imports, viewProviders
 })

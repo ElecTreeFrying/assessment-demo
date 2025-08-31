@@ -1,5 +1,3 @@
-import { RouterLink } from "@angular/router";
-
 import { UiButton } from "@ect/ui/button";
 
 const COMPONENTS = [
@@ -7,7 +5,6 @@ const COMPONENTS = [
 ];
 
 export const imports = [
-  RouterLink,
   COMPONENTS
 ];
 

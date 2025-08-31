@@ -1,4 +1,5 @@
 <button
+  [class.action-default]="!actionRed() && !actionPurple()"
   [class.action-red]="actionRed()"
   [class.action-purple]="actionPurple()"
   [matTooltip]="tooltip()"

@@ -14,6 +14,15 @@ button {
   cursor: pointer;
   user-select: none;
 
+  &.action-default {
+    @include elementStyles.gradientBorder(4px, var(--teal), var(--lime));
+  
+    .host--text {
+      @include textAnimation.gradientText(var(--teal), var(--lime));
+      margin-bottom: 0;
+    }
+  }
+
   &.action-red {
     @include elementStyles.gradientBorder(4px, var(--action-red), var(--lime));
   
@@ -24,7 +33,7 @@ button {
   }
   
   &.action-purple {
-    @include elementStyles.gradientBorder(4px, var(--action-red), var(--lime));
+    @include elementStyles.gradientBorder(4px, var(--action-purple), var(--lime));
   
     .host--text {
       @include textAnimation.gradientText(var(--action-purple), var(--lime));

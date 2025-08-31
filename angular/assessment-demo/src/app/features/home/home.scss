@@ -3,9 +3,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  $offsetTop: 20dvh;
-  height: calc(100dvh - $offsetTop);
-  padding-top: $offsetTop;
+
+  > * {
+    transform: translateY(20dvh);
+  }
 
   .host--image {
     width: 240px;

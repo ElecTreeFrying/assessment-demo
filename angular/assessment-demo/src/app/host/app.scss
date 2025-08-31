@@ -1,15 +1,33 @@
+$offset-top: 64px;
 
-router-outlet + * {
-  opacity: 0;
-  animation: routeFadeIn 200ms ease-in-out forwards;
-  backdrop-filter: blur(5px);
-  color:#fff;
+#app-root {
+  position: relative;
   height: 100dvh;
   overflow-y: auto;
-  padding: 0 10dvw;
+
+  &.background-gradient-default {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--mix) 50%, var(--lime) 100%);
+  }
+  &.background-gradient-red {
+    background: linear-gradient(135deg, var(--action-red) 0%, var(--lime) 100%);
+  }
+  &.background-gradient-purple {
+    background: linear-gradient(135deg, var(--action-purple) 0%, var(--lime) 100%);
+  }
+}
+
+router-outlet + * {
+  padding: 0 10dvw $offset-top;
+  backdrop-filter: blur(5px);
+  animation: routeFadeIn 200ms ease-in-out forwards;
+  color:#fff;
+  min-height: calc(100dvh - $offset-top);
+  opacity: 0;
   
-  @media (max-width: 1024px) {
-    padding: 0 5dvw;
+  @media (max-width: 1450px) {
+    $offset-top: 32px;
+    min-height: calc(100dvh - $offset-top);
+    padding: 0 5dvw $offset-top;
   }
 }
 

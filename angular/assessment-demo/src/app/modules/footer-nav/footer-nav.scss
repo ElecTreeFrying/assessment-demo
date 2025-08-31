@@ -1,0 +1,94 @@
+@use 'styles/text-animations' as textAnimation;
+
+:host {
+  display: block;
+  background-color: white;
+  margin-top: 3px;
+
+  p {
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  .host--animated-gradient-border {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  
+    &::before {
+      position: absolute;
+      content: "";
+      $offset: 3px;
+      width: 100%;
+      height: calc(100% + $offset);
+      margin-top: -$offset;
+      left: 0;
+      background: tomato;
+      z-index: 0;
+      transition: 0.3s;
+      animation: animate 2s linear infinite;
+    }
+  }
+
+  .host--content {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 10dvw;
+    background-color: white;
+    z-index: 1;
+    height: 300px;
+
+    &-left {
+      width: 300px;
+      margin-right: auto;
+    }
+    &-spacer {
+      width: 48px;
+    }
+    &-block {
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 32px;
+    }
+    &-image {
+      height: 70px;
+      width: auto;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    &-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      cursor: pointer;
+      user-select: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    &-selection {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      text-decoration: underline
+    }
+    &-option {
+      @include textAnimation.running(var(--lime));
+      font-size: 18px;
+      font-weight: 500;
+      color: black;
+      margin-top: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+}
+
+@keyframes animate {
+  50% {
+    filter: hue-rotate(350deg);
+  }
+}

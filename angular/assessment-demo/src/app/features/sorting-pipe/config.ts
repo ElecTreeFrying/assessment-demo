@@ -1,24 +1,30 @@
 import { RouterModule } from '@angular/router';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 
-import { DemoNav, DemoNavImage, DemoNavText } from '@ect/ui/demo-nav';
-import { SortingPipeService } from './sorting-pipe-service';
-import { PokemonCard } from 'src/app/ui/pokemon-card';
+import { UiDemoNav, UiDemoNavImage, UiDemoNavText } from '@ect/ui/demo-nav';
+import { UiPokemonCard } from 'src/app/ui/pokemon-card';
+import { SortSelection } from './sort-selection';
+import { SortByPipe } from './sort.pipe';
 
 const COMPONENTS = [
-  DemoNav,
-  DemoNavImage,
-  DemoNavText,
-  PokemonCard
+  UiDemoNav,
+  UiDemoNavImage,
+  UiDemoNavText,
+  SortSelection,
+  UiPokemonCard
+];
+
+const PIPES = [
+  AsyncPipe,
+  SortByPipe
 ];
 
 export const imports = [
   RouterModule,
-  AsyncPipe,
   NgOptimizedImage,
-  COMPONENTS
+  COMPONENTS,
+  PIPES
 ];
 
 export const viewProviders = [
-  SortingPipeService
 ];

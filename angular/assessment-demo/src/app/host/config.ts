@@ -1,13 +1,20 @@
 import { RouterOutlet } from "@angular/router";
-import { RouteGradientDirective } from "./route-gradient";
+
+import { FooterNav } from "@ect/feature/footer-nav";
+import { RootFeatureDirective } from "./directives";
+
+const COMPONENTS = [
+  FooterNav
+];
 
 const DIRECTIVES = [
-  RouteGradientDirective
+  RootFeatureDirective
 ];
 
 export const imports = [
   RouterOutlet, 
-  DIRECTIVES,
+  COMPONENTS,
+  DIRECTIVES
 ];
 
 export const viewProviders = [

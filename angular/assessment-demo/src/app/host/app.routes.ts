@@ -19,5 +19,6 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () => import('../features/not-found').then(m => m.NotFound),
+    title: 'ECT | Page Not Found'
   }
 ];

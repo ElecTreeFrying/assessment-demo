@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
 import { imports, viewProviders } from './config';
 import { PokemonLegendaryApiService } from '@ect/api/pokemon-legendary';
@@ -11,6 +11,7 @@ import { PokemonLegendaryApiService } from '@ect/api/pokemon-legendary';
 })
 export class SortingPipe {
 
-  pokemonLegendaryApi = inject(PokemonLegendaryApiService);
+  readonly pokemonLegendaryApi = inject(PokemonLegendaryApiService);
+  protected readonly sortKey = signal<string>('id');
 
 } 

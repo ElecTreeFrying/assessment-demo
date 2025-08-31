@@ -15,7 +15,7 @@ import { PokeDetail } from '@ect/api/pokemon-legendary';
   encapsulation: ViewEncapsulation.None,
   imports, viewProviders,
 })
-export class PokemonCard {
+export class UiPokemonCard {
 
   pokemon = input.required<PokeDetail>();
   gradientRed = input(false, { transform: booleanAttribute });

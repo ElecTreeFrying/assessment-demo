@@ -1,15 +1,12 @@
 import { RouterLink } from "@angular/router";
-
-import { UiButton } from "@ect/ui/button";
-
-const COMPONENTS = [
-  UiButton
-];
+import { NgOptimizedImage } from "@angular/common";
 
 export const imports = [
   RouterLink,
-  COMPONENTS
+  NgOptimizedImage
 ];
 
 export const viewProviders = [
 ];
+
+

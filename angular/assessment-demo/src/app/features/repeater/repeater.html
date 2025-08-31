@@ -7,10 +7,18 @@
 
 </ect-demo-nav>
 
-<div class="host--card-grid">
+<p class="host--description">
+  This page implements a reusable <strong>repeater</strong> component that renders its projected
+  template once for every element of the input array passed via
+  <code>[option]</code>. The projected template receives the current item as
+  <code>item</code> (via <code>let-item</code>), matching the requirement in the prompt.
+  Below, we bind <code>[option]</code> to <code>pokemonLegendaryApi.legendaries$ | async</code>
+  and project a template that displays each entry using the
+  <code>&lt;ect-pokemon-card&gt;</code>.
+</p>
 
-  @for (pokemon of pokemonLegendaryApi.legendaries$ | async; track pokemon) {
-    <ect-pokemon-card [pokemon]="pokemon" gradientPurple></ect-pokemon-card>
-  }
-
-</div>
+<repeater class="host--card-grid" [option]="(pokemonLegendaryApi.legendaries$ | async) ?? []">
+  <ng-template let-item>
+    <ect-pokemon-card [pokemon]="item" gradientPurple></ect-pokemon-card>
+  </ng-template>
+</repeater>

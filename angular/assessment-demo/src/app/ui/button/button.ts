@@ -6,6 +6,9 @@ import { imports, viewProviders } from './config';
   selector: 'ect-button',
   templateUrl: './button.html',
   styleUrls: ['./button.scss'],
+  host: {
+    class: 'ect-button'
+  },
   imports, viewProviders
 })
 export class UiButton {
