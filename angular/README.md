@@ -93,6 +93,7 @@ The build is configured with `stylePreprocessorOptions.includePaths: ['src']` so
 ```bash
 npm start        # dev server on :4200
 npm run build    # production build
+npm test         # run unit tests (Jasmine)
 ```
 
 This README is a high-level reviewer guide for the assessment. For implementation details, explore the feature and ui folders.
