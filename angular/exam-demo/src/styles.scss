@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+
+:root {
+
+  --teal: #1A826F;
+  --lime: #B5C427;
+  --mix: #68A34B; /* 50/50 blend of the two */
+
+  --action-red: #B24A4A;
+  --action-purple: #885B9A;
+}
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+
+  * {
+    font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  }
+
+  h1, h2, h3, h4, h5, p, span {
+    margin-top: 0;
+    text-align: center;
+  }
+}
+
+mat-icon {
+  font-family: 'Material Icons' !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

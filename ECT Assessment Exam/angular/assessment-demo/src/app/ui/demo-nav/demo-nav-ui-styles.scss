@@ -1,0 +1,22 @@
+@use 'styles/text-animations' as textAnimation;
+
+.ect-demo-nav {
+
+  &-image {
+    width: 100px;
+    height: auto;
+  }
+
+  &-text {
+    transform: translateY(0.5px);
+    cursor: pointer;
+    user-select: none;
+    
+    p {
+      @include textAnimation.running;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  }
+}

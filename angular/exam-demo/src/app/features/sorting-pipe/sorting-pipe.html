@@ -1,0 +1,22 @@
+
+<ect-demo-nav>
+
+  <img ectDemoNavImage ngSrc="https://www.ect-telecoms.com/wp-content/uploads/2021/10/ect-logo-white.svg" width="1" height="1" alt="ECT logo" />
+  
+  <ect-demo-nav-text>Custom Sort Pipe Demo</ect-demo-nav-text>
+  
+</ect-demo-nav>
+
+<p class="host--description">
+  This page demonstrates sorting Pokémon data using a custom Angular pipe. Choose a field and order below: use a leading “-” for descending (e.g., -name, -height, -weight), or omit it for ascending. The list reacts instantly to your selection. Current sort: <strong>{{ sortKey() || 'none' }}</strong>
+</p>
+
+<sort-selection [selected]="sortKey()" (sort)="sortKey.set($event)" />
+
+<div class="host--card-grid">
+
+  @for (pokemon of (pokemonLegendaryApi.legendaries$ | async | sortBy: sortKey()); track pokemon) {
+    <ect-pokemon-card [pokemon]="pokemon" gradientRed></ect-pokemon-card>
+  }
+
+</div>
