@@ -1,10 +1,4 @@
-import { Component, Directive } from '@angular/core';
-
-@Directive({
-  selector: '[ectDemoNavImage]',
-  host: { class: 'ect-demo-nav-image' }
-})
-export class UiDemoNavImage {}
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ect-demo-nav-text',

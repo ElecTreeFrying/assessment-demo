@@ -1,13 +1,12 @@
 import { RouterModule } from '@angular/router';
-import { AsyncPipe, JsonPipe, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 
-import { UiDemoNav, UiDemoNavImage, UiDemoNavText } from '@ect/ui/demo-nav';
+import { UiDemoNav, UiDemoNavText } from '@ect/ui/demo-nav';
 import { TemplateRepeater } from './template-repeater';
 import { UiPokemonCard } from 'src/app/ui/pokemon-card';
 
 const COMPONENTS = [
   UiDemoNav,
-  UiDemoNavImage,
   UiDemoNavText,
   UiPokemonCard,
   TemplateRepeater
@@ -16,7 +15,6 @@ const COMPONENTS = [
 export const imports = [
   RouterModule,
   AsyncPipe,
-  NgOptimizedImage,
   COMPONENTS,
   JsonPipe
 ];

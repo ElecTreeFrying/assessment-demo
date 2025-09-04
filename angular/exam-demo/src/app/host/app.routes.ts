@@ -17,6 +17,11 @@ export const routes: Routes = [
     title: 'ECT | Repeater Template'
   },
   {
+    path: 'playground',
+    loadChildren: () => import('../features/playground').then(m => m.pageRoutes),
+    title: 'ECT | Playground'
+  },
+  {
     path: '**',
     loadComponent: () => import('../features/not-found').then(m => m.NotFound),
     title: 'ECT | Page Not Found'

@@ -16,7 +16,7 @@ $offset-top: 64px;
   }
 }
 
-router-outlet + * {
+#app-root > router-outlet + * {
   padding: 0 10dvw $offset-top;
   backdrop-filter: blur(5px);
   animation: routeFadeIn 200ms ease-in-out forwards;

@@ -14,7 +14,9 @@
     height: 50px;
     cursor: pointer;
 
-    .ect-demo-nav-image {
+    &-logo {
+      width: 100px;
+      height: auto;
       transition: 0.15s opacity ease-in-out;
       opacity: 1;
     }
@@ -32,7 +34,7 @@
   }  
   
   &:hover &--highlight {
-    .ect-demo-nav-image {
+    &-logo {
       opacity: 0;
     }
     .mat-mdc-icon-button {
