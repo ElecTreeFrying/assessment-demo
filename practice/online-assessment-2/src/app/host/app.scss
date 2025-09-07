@@ -1,0 +1,17 @@
+#app-root {
+  position: relative;
+  display: block;
+  padding-top: 64px;
+}
+
+router-outlet + * {
+  display: block;
+  padding: 0 10dvw;
+  animation: routeFadeIn 0.2s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes routeFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

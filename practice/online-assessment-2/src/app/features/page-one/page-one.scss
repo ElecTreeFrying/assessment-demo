@@ -1,0 +1,28 @@
+
+
+.host--list {
+  display: flex;
+  flex-wrap: wrap;
+  $columns: 6;
+  $gap: 20px;
+  gap: $gap;
+
+  > * {
+    flex: 0 1 calc((100% - $gap*($columns - 1))/$columns);
+  }
+}
+
+.mat-mdc-card {
+  cursor: pointer;
+
+  &-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+  }
+
+  p {
+    text-align: center;
+    font-size: 16px;
+  }
+}

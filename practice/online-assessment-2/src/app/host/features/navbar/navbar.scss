@@ -1,0 +1,19 @@
+:host {
+  position: fixed;
+  display: block;
+  z-index: 1000;
+  width: 100dvw;
+  top: 0;
+
+  .mat-toolbar {
+    box-shadow: var(--mat-sys-level2);
+    gap: 12px;
+    padding: 0 10dvw;
+
+    > p:first-child {
+      margin-right: auto;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+}
