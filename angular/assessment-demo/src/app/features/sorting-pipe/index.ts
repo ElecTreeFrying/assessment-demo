@@ -1,3 +1,0 @@
-export * from './sorting-pipe';
-
-
