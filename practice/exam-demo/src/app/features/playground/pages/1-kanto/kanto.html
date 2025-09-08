@@ -1,0 +1,18 @@
+
+
+<div class="host--card-grid">
+  <ect-pokemon-card [pokemon]="selectedPokemon()" gradientPurple></ect-pokemon-card>
+  <ect-pokemon-card [pokemon]="selectedPokemon()" gradientPurple></ect-pokemon-card>
+  <ect-pokemon-card [pokemon]="selectedPokemon()" gradientPurple></ect-pokemon-card>
+</div>
+
+<app-poke-container>
+  <ect-pokemon-card [pokemon]="hooh()" gradientPurple></ect-pokemon-card>
+  <ect-pokemon-card [pokemon]="lugia()" gradientPurple></ect-pokemon-card>
+</app-poke-container>
+
+<br>
+<ect-button (click)="previousPokemon.set(selectedPokemon());selectedPokemon.set(lugia())" poke1>Lugia</ect-button>
+<br><br>
+<ect-button (click)="previousPokemon.set(selectedPokemon());selectedPokemon.set(hooh())">Ho-oh</ect-button>
+

@@ -1,0 +1,11 @@
+<button
+  [class.action-default]="!actionRed() && !actionPurple()"
+  [class.action-red]="actionRed()"
+  [class.action-purple]="actionPurple()"
+  [matTooltip]="tooltip()"
+  matRipple
+>
+  <p class="host--text">
+    <ng-content></ng-content>
+  </p>
+</button>

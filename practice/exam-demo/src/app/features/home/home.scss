@@ -1,0 +1,29 @@
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > * {
+    transform: translateY(20dvh);
+  }
+
+  .host--image {
+    width: 240px;
+    height: auto;
+    margin-bottom: 24px;
+  }
+  
+  .host--header {
+    margin-bottom: 16px;
+  }
+  
+  .host--info {
+    margin-bottom: 32px;
+  }
+
+  .host--actions {
+    display: flex;
+    gap: 24px;
+  }
+}

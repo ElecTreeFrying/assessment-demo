@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  padding: 0 !important;
+
+  .ect-pokemon-card {
+    display: block;
+    width: 100%;
+  }
+
+  .host--card-grid {
+    display: grid;
+    $gap: 20px;
+    gap: $gap;
+    margin-top: 32px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    @media (max-width: 2350px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    @media (max-width: 1850px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
