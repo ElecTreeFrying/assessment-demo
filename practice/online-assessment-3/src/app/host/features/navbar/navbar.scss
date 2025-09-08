@@ -1,0 +1,12 @@
+
+.mat-toolbar {
+  gap: 20px;
+  box-shadow: var(--mat-sys-level2);
+  padding: 0 10dvw;
+
+  > *:first-child {
+    margin-right: auto;
+    user-select: none;
+    cursor: pointer;
+  }
+}

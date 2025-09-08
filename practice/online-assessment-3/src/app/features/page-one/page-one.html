@@ -1,0 +1,29 @@
+
+<br>
+<h2>Page One</h2>
+<br>
+
+@defer (on viewport;prefetch on hover) {
+
+  @if (!topPokemon()) {
+    <p>Fetching results...</p>
+  }
+  @if (topPokemon()?.length === 0) {
+    <p>No results found</p>
+  }
+
+  <div class="host--grid">
+    @for (pokemon of topPokemon() | sort; track $index) {
+      <mat-card matRipple>
+      
+        <img matCardImage [ngSrc]="pokemon?.sprites?.front_default!" height="1" width="1" alt="">
+        <p>{{ pokemon?.id }} {{ pokemon?.name | titlecase }}</p>
+      
+      </mat-card>
+    }
+  </div>
+} @loading {
+  <p>Loading results...</p>
+} @placeholder {
+  <p>Fetching results...</p>
+}

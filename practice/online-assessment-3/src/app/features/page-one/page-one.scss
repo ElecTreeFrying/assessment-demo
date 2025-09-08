@@ -1,0 +1,26 @@
+
+.host--grid {
+  display: flex;
+  flex-wrap: wrap;
+  $gap: 12px;
+  $columns: 6;
+  gap: $gap;
+
+  > * {
+    flex: 0 1 calc(( 100% - $gap*($columns - 1) )/$columns);
+    cursor: pointer;
+  }
+}
+
+.mat-mdc-card {
+
+  &-image {
+    aspect-ratio: 1/1;
+    width: 100%;
+    height: auto;
+  }
+
+  p {
+    text-align: center;
+  }
+}

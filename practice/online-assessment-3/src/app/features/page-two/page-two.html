@@ -1,0 +1,32 @@
+
+<br>
+<h2>Page Two</h2>
+<br>
+
+@defer (on viewport;prefetch on hover) {
+
+  @if (!topPokemon()) {
+    <p>Fetching results...</p>
+  }
+  @if (topPokemon()?.length === 0) {
+    <p>No results found</p>
+  }
+
+  <repeater [data]="topPokemon() ?? []">
+    <ng-template let-item>
+      <mat-card matRipple>
+      
+        <img matCardImage [ngSrc]="item?.sprites?.front_default" height="1" width="1" alt="">
+        <p>{{ item?.id }} {{ item?.name | titlecase }}</p>
+      
+      </mat-card>
+    </ng-template>
+  </repeater>
+
+} @loading {
+  <p>Loading results...</p>
+} @placeholder {
+  <p>Fetching results...</p>
+}
+
+
