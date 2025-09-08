@@ -1,0 +1,25 @@
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > * {
+    transform: translateY(20dvh);
+  }
+
+  .host--title {
+    font-size: 48px;
+  }
+  .host--description {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .host--nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+  }
+}
