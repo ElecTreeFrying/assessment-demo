@@ -17,8 +17,23 @@
   <code>&lt;ect-pokemon-card&gt;</code>.
 </p>
 
-<repeater class="host--card-grid" [option]="(pokemonLegendaryApi.legendaries$ | async) ?? []">
-  <ng-template let-item>
-    <ect-pokemon-card [pokemon]="item" gradientPurple></ect-pokemon-card>
-  </ng-template>
-</repeater>
+@defer (on viewport; prefetch on hover) {
+
+  @if (pokemon()?.length === 0) {
+    <p>No results found.</p>
+  }
+  @if (!pokemon()) {
+    <p>Fetching results ...</p>
+  } @else {
+    <repeater class="host--card-grid" [option]="pokemon() ?? []">
+      <ng-template let-item>
+        <ect-pokemon-card [pokemon]="item" gradientPurple></ect-pokemon-card>
+      </ng-template>
+    </repeater>
+  }
+
+} @placeholder {
+  <p>Fetching results ...</p>
+} @loading {
+  <p>Loading results ...</p>
+}

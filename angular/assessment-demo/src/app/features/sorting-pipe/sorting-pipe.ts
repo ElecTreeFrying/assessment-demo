@@ -1,4 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import { imports } from './config';
 import { PokemonLegendaryApiService } from '@ect/api/pokemon-legendary';
@@ -12,6 +13,7 @@ import { PokemonLegendaryApiService } from '@ect/api/pokemon-legendary';
 export class SortingPipe {
 
   readonly pokemonLegendaryApi = inject(PokemonLegendaryApiService);
+  readonly pokemon = toSignal(this.pokemonLegendaryApi.legendaries$)
   readonly sortKey = signal<string>('id');
 
 } 
