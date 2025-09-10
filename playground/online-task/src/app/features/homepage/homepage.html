@@ -1,0 +1,30 @@
+
+<form (ngSubmit)="validate()" [formGroup]="formService.form">
+
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Enter Name here" size="50" formControlName="name">
+  </mat-form-field>
+
+  @if (this.optionField() === 'pageEntity') {
+    <mat-form-field>
+      <mat-label>Url</mat-label>
+      <input matInput placeholder="Enter URL here" formControlName="url">
+    </mat-form-field>
+  } @else {
+    <mat-form-field>
+      <mat-label>Icon</mat-label>
+      <input matInput placeholder="Enter URL here" formControlName="icon">
+    </mat-form-field>
+  }
+  
+  <mat-radio-group formControlName="option">
+    <mat-radio-button value="pageEntity">Page Entity</mat-radio-button>
+    <mat-radio-button value="component">Component Entity</mat-radio-button>
+  </mat-radio-group>
+
+  <button mat-raised-button type="submit">Validate</button>
+
+</form>
+
+
